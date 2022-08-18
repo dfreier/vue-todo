@@ -1,0 +1,25 @@
+{
+  "name": "vue-todo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@headlessui/vue": "^1.6.7",
+    "@heroicons/vue": "^1.0.6",
+    "@vueuse/core": "^9.1.0",
+    "nanoid": "^4.0.0",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.0.3",
+    "prettier": "^2.7.1",
+    "vite": "^3.0.7",
+    "vite-plugin-windicss": "^1.8.7",
+    "windicss": "^3.5.6"
+  }
+}
