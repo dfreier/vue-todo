@@ -60,7 +60,17 @@ export default {
   props: {
     modelValue: Boolean
   },
+  /**
+   * Way less code duplication now! 💪
+   */
   setup(props, { emit }) {
+    /**
+     * Each time we call `useModel()` we get a fresh Boolean ref.
+     * Again, we are just calling a totally normal function.
+     *
+     *☝️Keep in mind, state between composables is NOT shared.
+     * We see later how we can share state if we'd like to.
+     */
     const checked = useModel(props, 'modelValue', emit)
     return {
       checked
