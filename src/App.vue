@@ -2,6 +2,10 @@
 <template>
   <Layout>
     <TodoInput @create="createTodo" />
+    <!--
+    We have to pass down the state to child components as props.
+    State updates from components deeper in the tree need to be handled here.
+    -->
     <TodoList
       :todos="visibleTodos"
       :show-done="showDone"
