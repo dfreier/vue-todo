@@ -16,20 +16,33 @@
 <script>
 export default {
   props: {
+    /**
+     * Vue 3 automatically recognizes this as `v-model` (Vue 2 used `value`)
+     */
     modelValue: Boolean
   },
   data() {
     return {
+      /**
+       * Internal **writable** state (do not mutate props!)
+       */
       checked: false
     }
   },
   watch: {
     modelValue: {
+      /**
+       * Sync updates from props to the local state
+       */
       handler(value) {
         this.checked = value
       },
       immediate: true
     },
+    /**
+     * Communicate updates to parent component.
+     * Vue 2 equivalent is `this.$emit('input', value)`
+     */
     checked(value) {
       this.$emit('update:modelValue', value)
     }
