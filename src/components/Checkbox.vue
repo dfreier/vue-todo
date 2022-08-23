@@ -14,24 +14,29 @@
   />
 </template>
 <script>
+import { ref, watch } from 'vue'
+
 export default {
   props: {
     modelValue: Boolean
   },
-  data() {
-    return {
-      checked: false
-    }
-  },
-  watch: {
-    modelValue: {
-      handler(value) {
-        this.checked = value
+  setup(props, { emit }) {
+    const checked = ref(props.modelValue)
+
+    watch(
+      () => props.modelValue,
+      (value) => {
+        checked.value = value
       },
-      immediate: true
-    },
-    checked(value) {
-      this.$emit('update:modelValue', value)
+      { immediate: true }
+    )
+
+    watch(checked, (value) => {
+      emit('update:modelValue', value)
+    })
+
+    return {
+      checked
     }
   }
 }
