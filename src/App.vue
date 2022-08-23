@@ -2,6 +2,7 @@
 <template>
   <Layout>
     <TodoInput @create="createTodo" />
+    <!-- Pass new prop and handle new event -->
     <TodoList
       :todos="visibleTodos"
       :show-done="showDone"
@@ -24,6 +25,9 @@ export default {
     return {
       todos: [],
       showDone: true,
+      /**
+       * We need to extend our top-level state
+       */
       sorting: 'desc'
     }
   },
@@ -37,6 +41,9 @@ export default {
       const filtered = this.todos.filter((t) =>
         this.showDone ? true : !t.done
       )
+      /**
+       * Apply sorting in the computed array of todos
+       */
       const sorted = filtered.sort((a, b) => {
         let result = 0
         if (a.createdAt < b.createdAt) result = -1
@@ -64,6 +71,9 @@ export default {
     handleChangeShowDone(value) {
       this.showDone = value
     },
+    /**
+     * Update state
+     */
     handleSortingChanged(value) {
       this.sorting = value
     }
