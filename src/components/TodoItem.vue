@@ -40,19 +40,42 @@ export default {
     TrashIcon
   },
   props: {
+    /**
+     * In the old version, we passed in the whole todo object.
+     * It wouldn't harm here to still receive it, but for the purpose
+     * of this demo, I'd like to show you how we can do everything
+     * just with the id.
+     */
     id: {
       type: String,
       require: true
     }
   },
   setup(props) {
+    /**
+     * Ignore these empty refs, we need them in a later stage
+     */
     const itemRef = ref()
     const titleRef = ref()
     const { id } = toRefs(props)
 
+    /**
+     * This time we pass in the id to the composable,
+     * because we like to update and delete a particular todo.
+     */
     const { todo, updateTodo, deleteTodo } = useTodo(id)
 
+    /**
+     * Let's have a computed title to make it null-safe in the template
+     */
     const title = computed(() => todo.value?.title)
+
+    /**
+     *  We'd like to use `v-model` on the checkbox. Therefore, it must be
+     *  a writable thing.
+     *  Just use the update function to partially update the todo whenever
+     *  the checkbox was toggled.
+     */
     const done = computed({
       get: () => todo.value?.done,
       set: (value) => updateTodo({ done: value })
