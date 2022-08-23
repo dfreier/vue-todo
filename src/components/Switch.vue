@@ -49,6 +49,7 @@
 </template>
 <script>
 import { Switch, SwitchGroup, SwitchLabel } from '@headlessui/vue'
+import useModel from '../composables/useModel.js'
 
 export default {
   components: {
@@ -59,20 +60,10 @@ export default {
   props: {
     modelValue: Boolean
   },
-  data() {
+  setup(props, { emit }) {
+    const checked = useModel(props, 'modelValue', emit)
     return {
-      checked: false
-    }
-  },
-  watch: {
-    modelValue: {
-      handler(value) {
-        this.checked = value
-      },
-      immediate: true
-    },
-    checked(value) {
-      this.$emit('update:modelValue', value)
+      checked
     }
   }
 }

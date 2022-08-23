@@ -14,27 +14,14 @@
   />
 </template>
 <script>
-import { ref, watch } from 'vue'
+import useModel from '../composables/useModel.js'
 
 export default {
   props: {
     modelValue: Boolean
   },
   setup(props, { emit }) {
-    const checked = ref(props.modelValue)
-
-    watch(
-      () => props.modelValue,
-      (value) => {
-        checked.value = value
-      },
-      { immediate: true }
-    )
-
-    watch(checked, (value) => {
-      emit('update:modelValue', value)
-    })
-
+    const checked = useModel(props, 'modelValue', emit)
     return {
       checked
     }
