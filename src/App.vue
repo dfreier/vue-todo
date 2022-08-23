@@ -5,23 +5,26 @@
     <TodoList
       :todos="visibleTodos"
       :show-done="showDone"
+      :sorting="sorting"
       @delete="deleteTodo"
       @update:todo="updateTodo"
       @update:showDone="handleChangeShowDone"
+      @update:sorting="handleSortingChanged"
     />
   </Layout>
 </template>
 <script>
-import Layout from './components/Layout.vue'
-import TodoInput from './components/TodoInput.vue'
-import TodoList from './components/TodoList.vue'
-import { nanoid } from 'nanoid'
+import Layout from './components/Layout.vue';
+import TodoInput from './components/TodoInput.vue';
+import TodoList from './components/TodoList.vue';
+import { nanoid } from 'nanoid';
 
 export default {
   data() {
     return {
       todos: [],
-      showDone: true
+      showDone: true,
+      sorting: 'desc'
     }
   },
   components: {
@@ -31,7 +34,17 @@ export default {
   },
   computed: {
     visibleTodos() {
-      return this.todos.filter((t) => (this.showDone ? true : !t.done))
+      const filtered = this.todos.filter((t) =>
+        this.showDone ? true : !t.done
+      )
+      const sorted = filtered.sort((a, b) => {
+        let result = 0
+        if (a.createdAt < b.createdAt) result = -1
+        if (a.createdAt > b.createdAt) result = 1
+        if (this.sorting === 'asc') result = result * -1
+        return result
+      })
+      return sorted
     }
   },
   methods: {
@@ -50,6 +63,9 @@ export default {
     },
     handleChangeShowDone(value) {
       this.showDone = value
+    },
+    handleSortingChanged(value) {
+      this.sorting = value
     }
   }
 }

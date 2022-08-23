@@ -7,6 +7,11 @@
       css:space="x-8"
       css:m="t-8 x-auto"
     >
+      <TodoSorting
+        v-if="todos.length"
+        @update="$emit('update:sorting', $event)"
+        :sorting="sorting"
+      />
       <TodoFilter
         :show-done="showDone"
         @update="$emit('update:showDone', $event)"
@@ -38,10 +43,12 @@
 </template>
 <script>
 import TodoItem from './TodoItem.vue'
+import TodoSorting from './TodoSorting.vue'
 import TodoFilter from './TodoFilter.vue'
 export default {
   components: {
     TodoItem,
+    TodoSorting,
     TodoFilter
   },
   props: {
@@ -52,6 +59,10 @@ export default {
     showDone: {
       type: Boolean,
       default: true
+    },
+    sorting: {
+      type: String,
+      required: true
     }
   }
 }
