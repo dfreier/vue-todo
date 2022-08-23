@@ -21,7 +21,14 @@ export default {
     modelValue: Boolean
   },
   setup(props, { emit }) {
+    /**
+     * The `useModel` composable returns the Boolean ref
+     */
     const checked = useModel(props, 'modelValue', emit)
+
+    /**
+     * Make it available in the template
+     */
     return {
       checked
     }
