@@ -17,6 +17,17 @@ import TodoInput from './components/TodoInput.vue'
 import TodoList from './components/TodoList.vue'
 import { nanoid } from 'nanoid'
 
+/**
+ * Options API is a configuration object.
+ * - Props
+ * - Components
+ * - Data variables
+ * - Computed values
+ * - Methods
+ * - Lifecycle hooks
+ * - Watches
+ * - ...
+ */
 export default {
   data() {
     return {
