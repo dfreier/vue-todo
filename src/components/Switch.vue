@@ -56,6 +56,11 @@ export default {
     SwitchGroup,
     SwitchLabel
   },
+  /**
+   * This looks familiar!
+   * Same way of syncing the prop with an internal model
+   * as we did in the Checkbox component.
+   */
   props: {
     modelValue: Boolean
   },
