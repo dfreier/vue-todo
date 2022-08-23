@@ -24,11 +24,18 @@ import { ref } from 'vue'
 export default {
   setup() {
     const model = ref('')
+    /**
+     * Just pick what you need
+     */
     const { createTodo } = useTodo()
 
     function enterTodo() {
       const title = model.value?.trim()
       if (title) {
+        /**
+         * Instead of emitting the creation event to the root component,
+         * we just create the todo right away.
+         */
         createTodo(title)
         model.value = ''
       }
