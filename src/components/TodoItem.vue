@@ -21,7 +21,7 @@
       >
     </div>
     <div class="flex-1"></div>
-    <button css:h="5" css:w="5" @click="deleteTodo">
+    <button v-if="isHovered" css:h="5" css:w="5" @click="deleteTodo">
       <TrashIcon />
     </button>
   </div>
@@ -29,6 +29,7 @@
 <script>
 import { computed, ref, toRefs } from 'vue'
 import { PencilIcon, TrashIcon } from '@heroicons/vue/outline'
+import { useElementHover } from '@vueuse/core'
 import Checkbox from './Checkbox.vue'
 
 import useTodo from '../composables/useTodo.js'
@@ -58,9 +59,12 @@ export default {
       set: (value) => updateTodo({ done: value })
     })
 
+    const isHovered = useElementHover(itemRef)
+
     return {
       title,
       done,
+      isHovered,
       deleteTodo,
       itemRef,
       titleRef
