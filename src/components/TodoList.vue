@@ -7,6 +7,7 @@
       css:space="x-8"
       css:m="t-8 x-auto"
     >
+      <!-- No more pass-through work involved here -->
       <TodoSorting />
       <TodoFilter />
     </div>
@@ -43,6 +44,9 @@ export default {
     TodoFilter
   },
   setup() {
+    /**
+     * We get the todos from the composable now instead from a prop.
+     */
     const { todos } = useTodo()
     return {
       todos
