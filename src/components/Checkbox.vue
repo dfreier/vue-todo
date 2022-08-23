@@ -20,9 +20,25 @@ export default {
   props: {
     modelValue: Boolean
   },
+  /**
+   * Vue Composition API `setup()` function is just another thing on
+   * the options object.
+   *
+   * - It has no `this` !!!
+   * - Props and other context objects come as params
+   * - Lifecyle hooks, watch and computed are importable functions
+   */
   setup(props, { emit }) {
+    /**
+     * The same internal state we saw earlier
+     */
     const checked = ref(props.modelValue)
 
+    /**
+     * Watch is a function.
+     * Here we watch a prop directly using a lambda
+     * as the first argument.
+     */
     watch(
       () => props.modelValue,
       (value) => {
@@ -31,10 +47,18 @@ export default {
       { immediate: true }
     )
 
+    /**
+     * If we'd like to watch a ref,
+     * the first argument is not a function but a ref
+     */
     watch(checked, (value) => {
       emit('update:modelValue', value)
     })
 
+    /**
+     * Return an object with all the things that should be
+     * available in the template
+     */
     return {
       checked
     }
