@@ -18,19 +18,25 @@
   />
 </template>
 <script>
+import useTodo from '../composables/useTodo.js'
+import { ref } from 'vue'
+
 export default {
-  data() {
-    return {
-      model: ''
-    }
-  },
-  methods: {
-    enterTodo() {
-      const title = this.model.trim()
+  setup() {
+    const model = ref('')
+    const { createTodo } = useTodo()
+
+    function enterTodo() {
+      const title = model.value?.trim()
       if (title) {
-        this.$emit('create', title)
-        this.model = ''
+        createTodo(title)
+        model.value = ''
       }
+    }
+
+    return {
+      enterTodo,
+      model
     }
   }
 }

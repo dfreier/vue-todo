@@ -1,6 +1,6 @@
 <template>
   <button
-    @click="toggleSorting()"
+    @click="nextSorting()"
     css:flex="~"
     css:items="center"
     css:space="x-2"
@@ -20,24 +20,23 @@
 </template>
 <script>
 import { ArrowCircleDownIcon, ArrowCircleUpIcon } from '@heroicons/vue/outline'
+import useTodo from '../composables/useTodo.js'
+import { useCycleList } from '@vueuse/core'
+
 export default {
   components: {
     ArrowCircleDownIcon,
     ArrowCircleUpIcon
   },
-  props: {
-    sorting: {
-      type: String,
-      required: true
-    }
-  },
-  methods: {
-    toggleSorting() {
-      if (this.sorting == 'desc') {
-        this.$emit('update', 'asc')
-      } else {
-        this.$emit('update', 'desc')
-      }
+  setup() {
+    const { sorting } = useTodo()
+    const { next: nextSorting } = useCycleList(['desc', 'asc'], {
+      initialValue: sorting
+    })
+
+    return {
+      sorting,
+      nextSorting
     }
   }
 }

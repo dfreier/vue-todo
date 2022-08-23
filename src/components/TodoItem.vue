@@ -7,7 +7,7 @@
     css:items="center"
     css:text="black dark:zinc-100"
   >
-    <Checkbox v-model="done" @update:modelValue="handleDoneChanged()" />
+    <Checkbox v-model="done" />
     <div class="truncate">
       <span
         ref="titleRef"
@@ -21,14 +21,18 @@
       >
     </div>
     <div class="flex-1"></div>
-    <button css:h="5" css:w="5" @click="handleDelete()">
+    <button css:h="5" css:w="5" @click="deleteTodo">
       <TrashIcon />
     </button>
   </div>
 </template>
 <script>
+import { computed, ref, toRefs } from 'vue'
 import { PencilIcon, TrashIcon } from '@heroicons/vue/outline'
 import Checkbox from './Checkbox.vue'
+
+import useTodo from '../composables/useTodo.js'
+
 export default {
   components: {
     Checkbox,
@@ -36,34 +40,30 @@ export default {
     TrashIcon
   },
   props: {
-    todo: {
-      type: Object,
-      required: true
+    id: {
+      type: String,
+      require: true
     }
   },
-  data() {
+  setup(props) {
+    const itemRef = ref()
+    const titleRef = ref()
+    const { id } = toRefs(props)
+
+    const { todo, updateTodo, deleteTodo } = useTodo(id)
+
+    const title = computed(() => todo.value?.title)
+    const done = computed({
+      get: () => todo.value?.done,
+      set: (value) => updateTodo({ done: value })
+    })
+
     return {
-      done: false,
-      title: ''
-    }
-  },
-  watch: {
-    todo: {
-      handler() {
-        this.done = this.todo.done
-        this.title = this.todo.title
-      },
-      immediate: true
-    }
-  },
-  methods: {
-    handleDoneChanged() {
-      const updated = { ...this.todo }
-      updated.done = this.done
-      this.$emit('update', updated)
-    },
-    handleDelete() {
-      this.$emit('delete', this.todo)
+      title,
+      done,
+      deleteTodo,
+      itemRef,
+      titleRef
     }
   }
 }

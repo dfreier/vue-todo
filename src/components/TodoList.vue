@@ -7,15 +7,8 @@
       css:space="x-8"
       css:m="t-8 x-auto"
     >
-      <TodoSorting
-        v-if="todos.length"
-        @update="$emit('update:sorting', $event)"
-        :sorting="sorting"
-      />
-      <TodoFilter
-        :show-done="showDone"
-        @update="$emit('update:showDone', $event)"
-      />
+      <TodoSorting />
+      <TodoFilter />
     </div>
     <TransitionGroup
       name="list"
@@ -31,11 +24,7 @@
       css:transition="all"
     >
       <div v-for="(todo, index) in todos" :key="todo.id">
-        <TodoItem
-          :todo="todo"
-          @update="$emit('update:todo', $event)"
-          @delete="$emit('delete', $event)"
-        />
+        <TodoItem :id="todo.id" />
         <div css:border="b black" v-if="index < todos.length - 1"></div>
       </div>
     </TransitionGroup>
@@ -45,24 +34,18 @@
 import TodoItem from './TodoItem.vue'
 import TodoSorting from './TodoSorting.vue'
 import TodoFilter from './TodoFilter.vue'
+import useTodo from '../composables/useTodo.js'
+
 export default {
   components: {
     TodoItem,
     TodoSorting,
     TodoFilter
   },
-  props: {
-    todos: {
-      type: Array,
-      default: []
-    },
-    showDone: {
-      type: Boolean,
-      default: true
-    },
-    sorting: {
-      type: String,
-      required: true
+  setup() {
+    const { todos } = useTodo()
+    return {
+      todos
     }
   }
 }

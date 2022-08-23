@@ -7,26 +7,27 @@
     css:outline="2 black"
     css:ring="focus:0"
   >
-    <Switch :model-value="showDone" @update:modelValue="handleChanged"
-      >Show done</Switch
-    >
+    <Switch v-model="checked">Show done</Switch>
   </div>
 </template>
 <script>
 import Switch from './Switch.vue'
+import useTodo from '../composables/useTodo.js'
+import { computed } from 'vue'
+
 export default {
   components: {
     Switch
   },
-  props: {
-    showDone: {
-      type: Boolean,
-      default: ''
-    }
-  },
-  methods: {
-    handleChanged(value) {
-      this.$emit('update', value)
+  setup() {
+    const { filter } = useTodo()
+    const checked = computed({
+      get: () => filter.value === 'all',
+      set: (checked) => (filter.value = checked ? 'all' : 'pending')
+    })
+
+    return {
+      checked
     }
   }
 }
