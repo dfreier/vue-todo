@@ -19,6 +19,9 @@
   </button>
 </template>
 <script>
+/**
+ * A simple component with a button showing a label and an icon
+ */
 import { ArrowCircleDownIcon, ArrowCircleUpIcon } from '@heroicons/vue/outline'
 export default {
   components: {
