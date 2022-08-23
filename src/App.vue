@@ -30,6 +30,9 @@ import { nanoid } from 'nanoid'
  */
 export default {
   data() {
+    /**
+     * Top-level state
+     */
     return {
       todos: [],
       showDone: true
@@ -45,6 +48,9 @@ export default {
       return this.todos.filter((t) => (this.showDone ? true : !t.done))
     }
   },
+  /**
+   * Methods to manipulate the state
+   */
   methods: {
     createTodo(title) {
       const todo = { id: nanoid(), title, done: false, createdAt: Date.now() }
