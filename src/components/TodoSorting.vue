@@ -29,7 +29,17 @@ export default {
     ArrowCircleUpIcon
   },
   setup() {
+    /**
+     * The sorting ref is readable and writeable
+     */
     const { sorting } = useTodo()
+
+    /**
+     * This composable comes from a library (more on that later).
+     * It takes a list and a writable ref and returns a `next()` function.
+     * Each time you invoke it, it cycles through that list and assigns
+     * the next value to the ref. Pretty cool 😎
+     */
     const { next: nextSorting } = useCycleList(['desc', 'asc'], {
       initialValue: sorting
     })
