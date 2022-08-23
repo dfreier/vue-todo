@@ -7,7 +7,7 @@
       css:space="x-8"
       css:m="t-8 x-auto"
     >
-      <TodoSorting />
+      <TodoSorting v-if="todos.length" />
       <TodoFilter />
     </div>
     <TransitionGroup
