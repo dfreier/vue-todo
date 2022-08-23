@@ -7,6 +7,16 @@
       css:space="x-8"
       css:m="t-8 x-auto"
     >
+      <!--
+      Pass prop from parent to child, forward events on the way up.
+
+      We have only one component "in between" in this example, but there
+      can be a lot more. All the communication between components has to go
+      over the closest common ancestor component.
+
+      I think this technique makes refactoring and reusing things hard.
+      It also creates additional effort to make small components.
+      -->
       <TodoSorting
         v-if="todos.length"
         @update="$emit('update:sorting', $event)"
